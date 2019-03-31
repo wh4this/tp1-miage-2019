@@ -44,10 +44,8 @@ public class Mail {
 	private Instant date;
 	private Statut statut;
 
-	private static final Instant MIN_DATE = Instant
-			.parse("1970-01-01T00:00:00.00Z");
-	private static final Instant MAX_DATE = Instant
-			.parse("2100-01-01T00:00:00.00Z");
+	private static final Instant MIN_DATE = Instant.parse("1970-01-01T00:00:00.00Z");
+	private static final Instant MAX_DATE = Instant.parse("2100-01-01T00:00:00.00Z");
 
 	public boolean isImportant() {
 		return important;
@@ -123,10 +121,17 @@ public class Mail {
 		return true;
 	}
 
+	public boolean isMoreImportantThan(Mail mail) {
+		return this.isImportant() && !mail.isImportant();
+	}
+
+	public boolean isEarlierThan(Mail mail) {
+		return mail.getDate().compareTo(this.getDate()) == 1;
+	}
+
 	@Override
 	public String toString() {
-		return "Mail [important=" + important + ", sujet=" + sujet + ", date="
-				+ date + "]";
+		return "Mail [important=" + important + ", sujet=" + sujet + ", date=" + date + "]";
 	}
 
 }
